@@ -78,7 +78,7 @@ jobs:
     needs: [AfterBuild, DummyStep]
     steps:
       - run: |
-          passed="${{ needs.AfterBuildTest.outputs.success || needs.DummyStep.outputs.success }}"
+          passed="${{ needs.AfterBuild.outputs.success || needs.DummyStep.outputs.success }}"
           if [[ $passed == "true" ]]; then
             echo "App B passed"
             exit 0
