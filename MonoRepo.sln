@@ -1,10 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoRepo.AppA", "MonoRepo.AppA\MonoRepo.AppA.csproj", "{FD12EEE8-9373-40EF-81AD-D755EB302B92}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoRepo.AppA", "AppA\MonoRepo.AppA\MonoRepo.AppA.csproj", "{FD12EEE8-9373-40EF-81AD-D755EB302B92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoRepo.AppB", "MonoRepo.AppB\MonoRepo.AppB.csproj", "{F45239A9-3F31-40F7-A5D3-E4E3A41F99DC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoRepo.AppB", "AppB\MonoRepo.AppB\MonoRepo.AppB.csproj", "{F45239A9-3F31-40F7-A5D3-E4E3A41F99DC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoRepo.Common", "MonoRepo.Common\MonoRepo.Common.csproj", "{2691E35C-BC37-4B71-93C2-0619EC22F872}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonoRepo.AppA.Tests", "AppA\MonoRepo.AppA.Tests\MonoRepo.AppA.Tests.csproj", "{F32F2E06-84E7-4843-B650-FCB8C03F1872}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,5 +26,9 @@ Global
 		{2691E35C-BC37-4B71-93C2-0619EC22F872}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2691E35C-BC37-4B71-93C2-0619EC22F872}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2691E35C-BC37-4B71-93C2-0619EC22F872}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F32F2E06-84E7-4843-B650-FCB8C03F1872}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F32F2E06-84E7-4843-B650-FCB8C03F1872}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F32F2E06-84E7-4843-B650-FCB8C03F1872}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F32F2E06-84E7-4843-B650-FCB8C03F1872}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
