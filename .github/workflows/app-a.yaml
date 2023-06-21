@@ -66,10 +66,10 @@ jobs:
           dotnet-version: ${{ vars.DOTNET_VERSION }}
 
       - name: Restore Projects
-        run: dotnet restore AppA/MonoRepo.AppA/MonoRepo.AppA.Tests.csproj
+        run: dotnet restore AppA/MonoRepo.AppA.Tests/MonoRepo.AppA.Tests.csproj
 
       - name: Build
-        run: dotnet build AppA/MonoRepo.AppA/MonoRepo.AppA.Tests.csproj --no-restore --configuration ${{ env.BUILD_CONFIGURATION }}
+        run: dotnet build AppA/MonoRepo.AppA.Tests/MonoRepo.AppA.Tests.csproj --no-restore --configuration ${{ env.BUILD_CONFIGURATION }}
 
       - name: Tests
         run: dotnet test --no-build --configuration ${{ env.BUILD_CONFIGURATION }} AppA/MonoRepo.AppA/MonoRepo.AppA.Tests.csproj
