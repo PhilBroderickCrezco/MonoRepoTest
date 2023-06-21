@@ -57,8 +57,19 @@ jobs:
     secrets: inherit
     needs: [ Changes ]
     if: needs.Changes.outputs.app-a == 'true'
+    
+  AppAStatusCheck:
+    runs-on: ubuntu-latest
+    if: needs.Changes.outputs.app-a == 'true' && success()
+    needs: [ AppA ]
+    
   AppB:
     uses: ./.github/workflows/app-b.yaml
     secrets: inherit
     needs: [ Changes ]
     if: needs.Changes.outputs.app-b == 'true'
+    
+  AppBStatusCheck:
+    runs-on: ubuntu-latest
+    if: needs.Changes.outputs.app-b == 'true' && success()
+    needs: [ AppB ]
