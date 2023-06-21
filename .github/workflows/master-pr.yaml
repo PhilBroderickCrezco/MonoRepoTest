@@ -1,0 +1,34 @@
+name: Master PR
+on:
+  push:
+  workflow_dispatch:
+
+env:
+  BUILD_CONFIGURATION: 'Release'
+
+permissions:
+  id-token: write # requesting JWT in migration workflows for oidc auth with Azure
+  contents: read # required for actions/checkout
+  statuses: write # required for dorny/test-reporter
+  checks: write # required for dorny/test-reporter
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  BuildSolution:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install .NET Core 7 SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ vars.DOTNET_VERSION }}
+
+      - name: Restore Projects
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build--no-restore --configuration ${{ env.BUILD_CONFIGURATION }}
