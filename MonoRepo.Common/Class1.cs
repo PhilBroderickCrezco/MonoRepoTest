@@ -1,5 +1,5 @@
 ﻿namespace MonoRepo.Common;
 
-public class Class1
+public class ClassNew
 {
 }
