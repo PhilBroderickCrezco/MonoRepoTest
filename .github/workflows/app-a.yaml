@@ -72,4 +72,4 @@ jobs:
         run: dotnet build AppA/MonoRepo.AppA.Tests/MonoRepo.AppA.Tests.csproj --no-restore --configuration ${{ env.BUILD_CONFIGURATION }}
 
       - name: Tests
-        run: dotnet test --no-build --configuration ${{ env.BUILD_CONFIGURATION }} AppA/MonoRepo.AppA/MonoRepo.AppA.Tests.csproj
+        run: dotnet test --no-build --configuration ${{ env.BUILD_CONFIGURATION }} AppA/MonoRepo.AppA.Tests/MonoRepo.AppA.Tests.csproj
