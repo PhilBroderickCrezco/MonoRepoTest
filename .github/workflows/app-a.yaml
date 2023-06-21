@@ -54,9 +54,3 @@ jobs:
       - name: Tests
         run: dotnet test --no-build --configuration ${{ env.BUILD_CONFIGURATION }} AppA/MonoRepo.AppA.Tests/MonoRepo.AppA.Tests.csproj
         
-  AppAStatusCheck:
-    runs-on: ubuntu-latest
-    if: always()
-    needs: [Build, Test]
-    steps:
-      - run: echo "App A passed"
