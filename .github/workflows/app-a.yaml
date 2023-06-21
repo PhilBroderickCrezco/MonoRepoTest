@@ -1,0 +1,52 @@
+name: App A
+on:
+  push:
+  workflow_dispatch:
+
+env:
+  BUILD_CONFIGURATION: 'Release'
+
+permissions:
+  id-token: write # requesting JWT in migration workflows for oidc auth with Azure
+  contents: read # required for actions/checkout
+  statuses: write # required for dorny/test-reporter
+  checks: write # required for dorny/test-reporter
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  FilesChanged:
+    runs-on: ubuntu-latest
+    name: detect what files changed
+    outputs:
+      filesChanged: ${{ steps.changes.outputs.src }}
+    steps:
+      - uses: actions/checkout@v3
+        
+      - uses: dorny/paths-filter@v2
+        id: changes
+        with:
+          filters: |
+            src:
+              - .github/workflows/app-a.yaml
+              - MonoRepo.AppA/**        
+      
+  BuildTestPublish:
+    runs-on: ubuntu-latest
+    needs: [FilesChanged]
+    if: needs.files-changed.outputs.filesChanged == 'true'
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install .NET Core 7 SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ vars.DOTNET_VERSION }}
+
+      - name: Restore Projects
+        run: dotnet restore MonoRepo.AppA/MonoRepo.AppA.csproj
+
+      - name: Build
+        run: dotnet build MonoRepo.AppA/MonoRepo.AppA.csproj --no-restore --configuration ${{ env.BUILD_CONFIGURATION }}
