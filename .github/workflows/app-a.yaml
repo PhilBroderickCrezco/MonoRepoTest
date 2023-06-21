@@ -32,6 +32,7 @@ jobs:
             src:
               - .github/workflows/app-a.yaml
               - MonoRepo.AppA/**
+              - MonoRepo.Common/**
       
   BuildTestPublish:
     runs-on: ubuntu-latest

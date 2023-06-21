@@ -32,6 +32,7 @@ jobs:
             src:
               - .github/workflows/app-b.yaml
               - MonoRepo.AppB/**
+              - MonoRepo.Common/**
   
   BuildTestPublish:
     runs-on: ubuntu-latest
