@@ -75,7 +75,7 @@ jobs:
   AppBStatusCheck:
     runs-on: ubuntu-latest
     if: always()
-    needs: [Test, AfterBuild, DummyStep]
+    needs: [AfterBuild, DummyStep]
     steps:
       - run: |
           passed="${{ needs.AfterBuildTest.outputs.success || needs.DummyStep.outputs.success }}"
