@@ -12,9 +12,9 @@ permissions:
   statuses: write # required for dorny/test-reporter
   checks: write # required for dorny/test-reporter
 
-#concurrency:
-#  group: ${{ github.workflow }}-${{ github.ref }}
-#  cancel-in-progress: true
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   BuildSolution:
@@ -32,48 +32,3 @@ jobs:
 
       - name: Build
         run: dotnet build --no-restore --configuration ${{ env.BUILD_CONFIGURATION }} MonoRepo.sln
-        
-  Changes:
-    runs-on: ubuntu-latest
-    outputs:
-      app-a: ${{ steps.filter.outputs.app-a }}
-      app-b: ${{ steps.filter.outputs.app-b }}
-    steps:
-      - uses: dorny/paths-filter@v2
-        id: filter
-        with:
-          filters: |
-            app-a:
-              - .github/workflows/app-a.yaml
-              - AppA/**
-              - MonoRepo.Common/**
-            app-b:
-              - .github/workflows/app-b.yaml
-              - AppB/**
-              - MonoRepo.Common/**
-  
-  AppA:
-    uses: ./.github/workflows/app-a.yaml
-    secrets: inherit
-    needs: [ Changes ]
-    if: needs.Changes.outputs.app-a == 'true'
-    
-  AppAStatusCheck:
-    runs-on: ubuntu-latest
-    if: needs.Changes.outputs.app-a == 'true' && success()
-    needs: [ AppA ]
-    steps:
-      - run: echo "App A passed"
-    
-  AppB:
-    uses: ./.github/workflows/app-b.yaml
-    secrets: inherit
-    needs: [ Changes ]
-    if: needs.Changes.outputs.app-b == 'true'
-    
-  AppBStatusCheck:
-    runs-on: ubuntu-latest
-    if: needs.Changes.outputs.app-b == 'true' && success()
-    needs: [ AppB ]
-    steps:
-      - run: echo "App B passed"
