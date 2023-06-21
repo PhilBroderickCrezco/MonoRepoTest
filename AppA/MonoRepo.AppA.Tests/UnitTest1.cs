@@ -10,7 +10,7 @@ public class Tests
     [Test]
     public void Test1()
     {
-        Task.Delay(25000);
+        Task.Delay(2000);
         Assert.Pass();
     }
 }
