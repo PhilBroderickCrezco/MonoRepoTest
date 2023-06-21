@@ -2,5 +2,5 @@
 
 public class ClassNew
 {
-    public string PropString { get; set; }
+    public string Prop { get; set; }
 }
