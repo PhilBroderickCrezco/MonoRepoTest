@@ -62,7 +62,7 @@ jobs:
     runs-on: ubuntu-latest
     if: |
       always() && 
-      ((needs.Changes.outputs.app-a == 'true' && success()) || (needs.Changes.outputs.app-a == 'false' && success()) 
+      ((needs.Changes.outputs.app-a == 'true' && success()) || (needs.Changes.outputs.app-a == 'false' && success()))
     needs: [ AppA ]
     steps:
       - run: echo "App A passed"
@@ -77,7 +77,7 @@ jobs:
     runs-on: ubuntu-latest
     if: |
       always() && 
-      ((needs.Changes.outputs.app-b == 'true' && success()) || (needs.Changes.outputs.app-b == 'false' && success()) 
+      ((needs.Changes.outputs.app-b == 'true' && success()) || (needs.Changes.outputs.app-b == 'false' && success()))
     needs: [ AppB ]
     steps:
       - run: echo "App B passed"
