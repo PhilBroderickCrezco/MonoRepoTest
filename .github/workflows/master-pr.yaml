@@ -77,7 +77,7 @@ jobs:
     runs-on: ubuntu-latest
     if: |
       always() && 
-      ((needs.Changes.outputs.app-b == 'true' && success()) || (needs.Changes.outputs.app-b == 'false' && && needs.AppB.result == 'skipped'))
+      ((needs.Changes.outputs.app-b == 'true' && success()) || (needs.Changes.outputs.app-b == 'false' && needs.AppB.result == 'skipped'))
     needs: [ AppB ]
     steps:
       - run: echo "App B passed"
