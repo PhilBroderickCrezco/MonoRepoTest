@@ -52,7 +52,7 @@ jobs:
       - name: Build
         run: dotnet build AppB/MonoRepo.AppB/MonoRepo.AppB.csproj --no-restore --configuration ${{ env.BUILD_CONFIGURATION }}
         
-  StatusCheck:
+  AppBStatusCheck:
     runs-on: ubuntu-latest
     needs: [Build]
     if: success()
