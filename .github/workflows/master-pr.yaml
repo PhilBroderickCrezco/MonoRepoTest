@@ -12,9 +12,9 @@ permissions:
   statuses: write # required for dorny/test-reporter
   checks: write # required for dorny/test-reporter
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+#concurrency:
+#  group: ${{ github.workflow }}-${{ github.ref }}
+#  cancel-in-progress: true
 
 jobs:
   BuildSolution:
