@@ -50,4 +50,4 @@ jobs:
         run: dotnet restore AppB/MonoRepo.AppB/MonoRepo.AppB.csproj
 
       - name: Build
-        run: dotnet build AppBMonoRepo.AppB/MonoRepo.AppB.csproj --no-restore --configuration ${{ env.BUILD_CONFIGURATION }}
+        run: dotnet build AppB/MonoRepo.AppB/MonoRepo.AppB.csproj --no-restore --configuration ${{ env.BUILD_CONFIGURATION }}
