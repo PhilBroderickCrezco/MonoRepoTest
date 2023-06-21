@@ -1,6 +1,6 @@
-name: Master PR
+name: App A
 on:
-  pull_request:
+  push:
   workflow_dispatch:
 
 env:
@@ -17,8 +17,27 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  BuildSolution:
+  FilesChanged:
     runs-on: ubuntu-latest
+    name: detect what files changed
+    outputs:
+      filesChanged: ${{ steps.changes.outputs.src }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: dorny/paths-filter@v2
+        id: changes
+        with:
+          filters: |
+            src:
+              - .github/workflows/app-a.yaml
+              - AppA/**
+              - MonoRepo.Common/**
+  
+  Build:
+    runs-on: ubuntu-latest
+    needs: [FilesChanged]
+    if: needs.FilesChanged.outputs.filesChanged == 'true'
     steps:
       - uses: actions/checkout@v3
 
@@ -28,7 +47,64 @@ jobs:
           dotnet-version: ${{ vars.DOTNET_VERSION }}
 
       - name: Restore Projects
-        run: dotnet restore
+        run: dotnet restore AppA/MonoRepo.AppA/MonoRepo.AppA.csproj
 
       - name: Build
-        run: dotnet build --no-restore --configuration ${{ env.BUILD_CONFIGURATION }} MonoRepo.sln
+        run: dotnet build AppA/MonoRepo.AppA/MonoRepo.AppA.csproj --no-restore --configuration ${{ env.BUILD_CONFIGURATION }}
+  
+  
+  Test:
+    runs-on: ubuntu-latest
+    needs: [ FilesChanged, Build ]
+    if: needs.FilesChanged.outputs.filesChanged == 'true'
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install .NET Core 7 SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ vars.DOTNET_VERSION }}
+
+      - name: Restore Projects
+        run: dotnet restore AppA/MonoRepo.AppA.Tests/MonoRepo.AppA.Tests.csproj
+
+      - name: Build
+        run: dotnet build AppA/MonoRepo.AppA.Tests/MonoRepo.AppA.Tests.csproj --no-restore --configuration ${{ env.BUILD_CONFIGURATION }}
+
+      - name: Tests
+        run: dotnet test --no-build --configuration ${{ env.BUILD_CONFIGURATION }} AppA/MonoRepo.AppA.Tests/MonoRepo.AppA.Tests.csproj
+  
+  AfterBuildTest:
+    needs: [Build,Test]
+    runs-on: ubuntu-latest
+    if: success()
+    outputs:
+      success: ${{ steps.setoutput.outputs.SUCCESS }}
+    steps:
+      - id: setoutput
+        run: echo "SUCCESS=true" >> $env:GITHUB_OUTPUT
+  
+  DummyStep:
+    runs-on: ubuntu-latest
+    needs: [FilesChanged]
+    if: needs.FilesChanged.outputs.filesChanged == 'false'
+    outputs:
+      success: ${{ steps.setoutput.outputs.SUCCESS }}
+    steps:
+      - id: setoutput
+        run: echo "SUCCESS=true" >> $env:GITHUB_OUTPUT
+  
+  AppAStatusCheck:
+    runs-on: ubuntu-latest
+    if: always()
+    needs: [Test, AfterBuildTest, DummyStep]
+    steps:
+      - run: |
+          passed="${{ needs.AfterBuildTest.outputs.success || needs.DummyStep.outputs.success }}"
+          if [[ $passed == "true" ]]; then
+            echo "App A passed"
+            exit 0
+          else
+            echo "App A failed"
+            exit 1
+          fi
