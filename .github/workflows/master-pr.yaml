@@ -62,6 +62,8 @@ jobs:
     runs-on: ubuntu-latest
     if: needs.Changes.outputs.app-a == 'true' && success()
     needs: [ AppA ]
+    steps:
+      - run: echo "App A passed"
     
   AppB:
     uses: ./.github/workflows/app-b.yaml
@@ -73,3 +75,5 @@ jobs:
     runs-on: ubuntu-latest
     if: needs.Changes.outputs.app-b == 'true' && success()
     needs: [ AppB ]
+    steps:
+      - run: echo "App B passed"
