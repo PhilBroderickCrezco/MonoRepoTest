@@ -60,7 +60,7 @@ jobs:
       success: ${{ steps.setoutput.outputs.SUCCESS }}
     steps:
       - id: setoutput
-        run: echo "SUCCESS=true" >> $env:GITHUB_OUTPUT
+        run: echo "SUCCESS=true" >> $GITHUB_ENV
   
   DummyStep:
     runs-on: ubuntu-latest
@@ -70,7 +70,7 @@ jobs:
       success: ${{ steps.setoutput.outputs.SUCCESS }}
     steps:
       - id: setoutput
-        run: echo "SUCCESS=true" >> $env:GITHUB_OUTPUT
+        run: echo "SUCCESS=true" >> $GITHUB_ENV
   
   AppBStatusCheck:
     runs-on: ubuntu-latest
