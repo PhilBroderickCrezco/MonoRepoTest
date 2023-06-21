@@ -12,9 +12,9 @@ permissions:
   statuses: write # required for dorny/test-reporter
   checks: write # required for dorny/test-reporter
 
-#concurrency:
-#  group: ${{ github.workflow }}-${{ github.ref }}
-#  cancel-in-progress: true
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   Build:
@@ -32,10 +32,3 @@ jobs:
 
       - name: Build
         run: dotnet build AppB/MonoRepo.AppB/MonoRepo.AppB.csproj --no-restore --configuration ${{ env.BUILD_CONFIGURATION }}
-  
-  AppBStatusCheck:
-    runs-on: ubuntu-latest
-    if: always()
-    needs: [Build]
-    steps:
-      - run: echo "App B passed"

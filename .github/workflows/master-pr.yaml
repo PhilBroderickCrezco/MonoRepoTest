@@ -60,7 +60,9 @@ jobs:
     
   AppAStatusCheck:
     runs-on: ubuntu-latest
-    if: needs.Changes.outputs.app-a == 'true' && success()
+    if: |
+      always() && 
+      ((needs.Changes.outputs.app-a == 'true' && success()) || (needs.Changes.outputs.app-a == 'false' && needs.AppA.result == 'skipped' ))
     needs: [ AppA ]
     steps:
       - run: echo "App A passed"
@@ -73,7 +75,9 @@ jobs:
     
   AppBStatusCheck:
     runs-on: ubuntu-latest
-    if: needs.Changes.outputs.app-b == 'true' && success()
+    if: |
+      always() && 
+      ((needs.Changes.outputs.app-b == 'true' && success()) || (needs.Changes.outputs.app-b == 'false' && needs.AppB.result == 'skipped'))
     needs: [ AppB ]
     steps:
       - run: echo "App B passed"
