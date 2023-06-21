@@ -11,6 +11,6 @@ public class Tests
     public void Test1()
     {
         Task.Delay(2000);
-        Assert.Pass();
+        Assert.False(true);
     }
 }

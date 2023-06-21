@@ -52,7 +52,6 @@ jobs:
       - name: Build
         run: dotnet build AppA/MonoRepo.AppA/MonoRepo.AppA.csproj --no-restore --configuration ${{ env.BUILD_CONFIGURATION }}
       
-        
   Test:
     runs-on: ubuntu-latest
     needs: [ FilesChanged, Build ]
@@ -74,9 +73,9 @@ jobs:
       - name: Tests
         run: dotnet test --no-build --configuration ${{ env.BUILD_CONFIGURATION }} AppA/MonoRepo.AppA.Tests/MonoRepo.AppA.Tests.csproj
         
-  StatusCheck:
+  AppAStatusCheck:
     runs-on: ubuntu-latest
-    needs: [Test]
+    needs: [ Build, Test ]
     if: success()
     steps:
-      - run: echo "App B Status Check succeeded"
+      - run: echo "App A Status Check succeeded"
