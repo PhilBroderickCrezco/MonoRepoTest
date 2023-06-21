@@ -94,7 +94,7 @@ jobs:
       - id: setoutput
         run: echo "::set-output name=success::true"
         
-  AppAStatusCheck:
+  StatusCheck:
     runs-on: ubuntu-latest
     if: always()
     needs: [Test, AfterBuildTest, DummyStep]
