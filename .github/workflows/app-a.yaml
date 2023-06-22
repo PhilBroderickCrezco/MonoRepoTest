@@ -102,9 +102,9 @@ jobs:
       - run: |
           passed="${{ needs.AfterBuildTest.outputs.success || needs.DummyStep.outputs.success }}"
           if [[ $passed == "true" ]]; then
-            echo "App A passed"
+            echo "App A checks passed"
             exit 0
           else
-            echo "App A failed"
+            echo "App A checks failed"
             exit 1
           fi
