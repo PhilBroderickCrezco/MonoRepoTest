@@ -87,3 +87,10 @@ jobs:
             echo "App B failed"
             exit 1
           fi
+  AppBDeploy:
+    name: App B Deploy
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master
+    needs: [ Build ]
+    steps:
+      - run: echo "Deploying App A"
