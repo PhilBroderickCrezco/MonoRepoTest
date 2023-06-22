@@ -44,6 +44,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: [FilesChanged]
     if: needs.FilesChanged.outputs.filesChanged == 'true' || github.event_name == 'workflow_dispatch' || inputs.allowDeploy
+    outputs:
+      success: ${{ steps.setoutput.outputs.SUCCESS }}
     steps:
       - uses: actions/checkout@v3
 
