@@ -11,6 +11,7 @@ permissions:
   contents: read # required for actions/checkout
   statuses: write # required for dorny/test-reporter
   checks: write # required for dorny/test-reporter
+  pull-requests: read # required for dorny/paths-filter
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
