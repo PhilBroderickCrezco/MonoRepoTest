@@ -107,6 +107,7 @@ jobs:
           fi
   AppADeploy:
     name: App A Deploy
+    environment: Deploy
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/master'
     needs: [ Build, Test ]
