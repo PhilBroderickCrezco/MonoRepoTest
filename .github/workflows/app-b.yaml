@@ -88,7 +88,7 @@ jobs:
     if: always() && github.ref != 'refs/heads/master' && !inputs.allowDeploy
     needs: [Build]
     steps:
-      - run: echo "${{ needs.Build.outputs.success }}
+      - run: echo "${{ needs.Build.outputs.success }}"
       - run: |
           passed="${{ needs.FilesChanged.outputs.filesChanged == 'false' || (needs.Build.outputs.success != '' && needs.Build.outputs.success) }}"
           if [[ $passed == "true" ]]; then
