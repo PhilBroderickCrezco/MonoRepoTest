@@ -109,7 +109,10 @@ jobs:
     if: always() && github.ref != 'refs/heads/master' || inputs.allowDeploy
     needs: [Test]
     steps:
-      - run: echo "${{ needs.Test.outputs.success }}"
+      - run: | 
+          echo "${{ needs.Test.outputs.success }}"
+          echo "${{ needs.Test.outputs.success != '' }}"
+          echo "${{ (needs.Test.outputs.success != '' && needs.Test.outputs.success)}}"
       - run: |
           passed="${{ needs.FilesChanged.outputs.filesChanged == 'false' || (needs.Test.outputs.success != '' && needs.Test.outputs.success) }}"
           if [[ $passed == "true" ]]; then
