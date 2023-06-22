@@ -45,7 +45,7 @@ jobs:
     needs: [FilesChanged]
     if: needs.FilesChanged.outputs.filesChanged == 'true' || github.event_name == 'workflow_dispatch' || inputs.allowDeploy
     outputs:
-      success: ${{ steps.setoutput.outputs.SUCCESS }}
+      success: ${{ steps.setoutput.outputs.success }}
     steps:
       - uses: actions/checkout@v3
 

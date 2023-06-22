@@ -63,7 +63,7 @@ jobs:
     needs: [ FilesChanged, Build ]
     if: needs.FilesChanged.outputs.filesChanged == 'true' 
     outputs:
-      success: ${{ steps.setoutput.outputs.SUCCESS }}
+      success: ${{ steps.setoutput.outputs.success }}
     steps:
       - uses: actions/checkout@v3
 
