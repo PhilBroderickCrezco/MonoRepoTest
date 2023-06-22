@@ -107,7 +107,7 @@ jobs:
   AppADeploy:
     name: App A Deploy
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master
+    if: github.ref == 'refs/heads/master'
     needs: [ Build, Test ]
     steps:
       - run: echo "Deploying App A"
