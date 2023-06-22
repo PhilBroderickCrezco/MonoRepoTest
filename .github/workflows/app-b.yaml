@@ -96,6 +96,7 @@ jobs:
           echo "${{ (needs.Build.outputs.success == '' && !needs.Build.outputs.success)}}"
           echo "${{ (needs.Build.outputs.success == '' && !needs.Build.outputs.success)}}"
           echo "${{ needs.FilesChanged.outputs.filesChanged == 'false' }}"
+          echo "${{ needs.FilesChanged.outputs.filesChanged }}"
       - run: |
           passed="${{ needs.FilesChanged.outputs.filesChanged == 'false' || (needs.Build.outputs.success != '' && !needs.Build.outputs.success) || needs.Build.outputs.success }}"
           if [[ $passed == "true" ]]; then
