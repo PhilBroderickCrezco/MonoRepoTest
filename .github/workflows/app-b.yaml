@@ -96,7 +96,7 @@ jobs:
     name: App B Deploy
     environment: Deploy
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/master' || inputs.allowDeploy
     needs: [ Build ]
     steps:
       - run: echo "Deploying App B"
