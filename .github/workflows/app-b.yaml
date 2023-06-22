@@ -61,7 +61,7 @@ jobs:
   AfterBuild:
     needs: [Build]
     runs-on: ubuntu-latest
-    if: success() && github.ref != 'refs/heads/master'
+    if: success() && github.ref != 'refs/heads/master' && !inputs.allowDeploy
     outputs:
       success: ${{ steps.setoutput.outputs.SUCCESS }}
     steps:
@@ -80,7 +80,7 @@ jobs:
   
   AppBStatusCheck:
     runs-on: ubuntu-latest
-    if: always() && github.ref != 'refs/heads/master'
+    if: always() && github.ref != 'refs/heads/master' && !inputs.allowDeploy
     needs: [AfterBuild, DummyStep]
     steps:
       - run: |
