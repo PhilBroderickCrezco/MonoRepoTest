@@ -119,7 +119,7 @@ jobs:
           echo "${{ needs.FilesChanged.outputs.filesChanged == 'false' }}"
           echo "${{ needs.FilesChanged.outputs.filesChanged }}"
       - run: |
-          passed="${{ needs.FilesChanged.outputs.filesChanged == 'false' || (needs.Test.outputs.success != '' && !needs.Test.outputs.success) || needs.Test.outputs.success }}"
+          passed="${{ needs.FilesChanged.outputs.filesChanged == 'false' || (needs.Test.outputs.success != '' && needs.Test.outputs.success)}}"
           if [[ $passed == "true" ]]; then
             echo "App A checks passed"
             exit 0

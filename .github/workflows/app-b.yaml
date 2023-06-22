@@ -98,7 +98,7 @@ jobs:
           echo "${{ needs.FilesChanged.outputs.filesChanged == 'false' }}"
           echo "${{ needs.FilesChanged.outputs.filesChanged }}"
       - run: |
-          passed="${{ needs.FilesChanged.outputs.filesChanged == 'false' || (needs.Build.outputs.success != '' && !needs.Build.outputs.success) || needs.Build.outputs.success }}"
+          passed="${{ needs.FilesChanged.outputs.filesChanged == 'false' || (needs.Build.outputs.success != '' && needs.Build.outputs.success) }}"
           if [[ $passed == "true" ]]; then
             echo "App B passed"
             exit 0
