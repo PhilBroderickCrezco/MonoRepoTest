@@ -86,7 +86,7 @@ jobs:
   AppBStatusCheck:
     runs-on: ubuntu-latest
     if: always() && github.ref != 'refs/heads/master' && !inputs.allowDeploy
-    needs: [Build]
+    needs: [Build, FilesChanged]
     steps:
       - run: |
           echo "${{ needs.Build.outputs.success }}"
