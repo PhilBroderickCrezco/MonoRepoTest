@@ -109,14 +109,16 @@ jobs:
     if: always() && github.ref != 'refs/heads/master' || inputs.allowDeploy
     needs: [Test]
     steps:
-      - run: | 
+      - run: |
           echo "${{ needs.Test.outputs.success }}"
           echo "${{ needs.Test.outputs.success != '' }}"
           echo "${{ (needs.Test.outputs.success != '' && needs.Test.outputs.success)}}"
-          echo "${{ needs.Build.outputs.success == '' }}"
-          echo "${{ (needs.Build.outputs.success == '' && !needs.Build.outputs.success)}}"
+          echo "${{ needs.Test.outputs.success == '' }}"
+          echo "${{ (needs.Test.outputs.success == '' && !needs.Test.outputs.success)}}"
+          echo "${{ (needs.Test.outputs.success == '' && !needs.Test.outputs.success)}}"
+          echo "${{ needs.FilesChanged.outputs.filesChanged == 'false' }}"
       - run: |
-          passed="${{ needs.FilesChanged.outputs.filesChanged == 'false' || (needs.Test.outputs.success == '' && !needs.Test.outputs.success) || needs.Test.outputs.success }}"
+          passed="${{ needs.FilesChanged.outputs.filesChanged == 'false' || (needs.Test.outputs.success != '' && !needs.Test.outputs.success) || needs.Test.outputs.success }}"
           if [[ $passed == "true" ]]; then
             echo "App A checks passed"
             exit 0
