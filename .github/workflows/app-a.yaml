@@ -20,11 +20,11 @@ jobs:
   FilesChanged:
     runs-on: ubuntu-latest
     name: detect what files changed
+    permissions:
+      pull-requests: read
     outputs:
       filesChanged: ${{ steps.changes.outputs.src }}
     steps:
-      - uses: actions/checkout@v3
-
       - uses: dorny/paths-filter@v2
         id: changes
         with:
