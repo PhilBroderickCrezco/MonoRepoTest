@@ -107,6 +107,7 @@ jobs:
   AppAStatusCheck:
     runs-on: ubuntu-latest
     if: always() && github.ref != 'refs/heads/master' || inputs.allowDeploy
+    needs: [Test]
     steps:
       - run: |
           passed="${{ needs.FilesChanged.outputs.filesChanged == 'false' || needs.Test.outputs.success }}"
